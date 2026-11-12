@@ -1,0 +1,24 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "iterations": 2500,
+  "seed": 5,
+  "threads": 1,
+  "output": "result.png",
+
+  "preset": "chill",
+  "palette": "warm",
+
+  "functions": [
+    { "name": "swirl", "weight": 1.0 },
+    { "name": "horseshoe", "weight": 0.8 },
+    { "name": "spherical", "weight": 0.6 },
+    { "name": "sinusoidal", "weight": 0.4 }
+  ],
+
+  "affineParams": [
+    { "a": 0.5, "b": 0.0, "c": 0.0, "d": 0.0, "e": 0.5, "f": 0.0 },
+    { "a": -0.4, "b": 0.3, "c": 0.2, "d": 0.3, "e": 0.4, "f": -0.1 },
+    { "a": 0.3, "b": -0.5, "c": -0.2, "d": 0.5, "e": 0.3, "f": 0.1 }
+  ]
+}

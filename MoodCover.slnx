@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MoodCover.App/MoodCover.App.csproj" />
+    <Project Path="src/MoodCover.Tests/MoodCover.Tests.csproj" />
+    <Project Path="src/MoodCover.IntegrationTests/MoodCover.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
