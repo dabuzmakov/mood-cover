@@ -1,12 +1,12 @@
 ﻿namespace MoodCover.Core.Randomness;
 
-internal class WeightedRandom<T>
+public class WeightedRandom<T>
 {
     private readonly Random _random;
     private readonly IReadOnlyList<(T Value, double Weight)> _weightedList;
     private readonly double _totalWeight;
 
-    internal WeightedRandom(Random random, IReadOnlyList<(T Value, double Weight)> weightedList)
+    public WeightedRandom(Random random, IReadOnlyList<(T Value, double Weight)> weightedList)
     {
         if (weightedList.Count == 0 || weightedList.Any(pair => pair.Weight <= 0))
             throw new ArgumentException();
@@ -16,7 +16,7 @@ internal class WeightedRandom<T>
         _totalWeight = _weightedList.Sum(pair => pair.Weight);
     }
 
-    internal T Next()
+    public T Next()
     {
         var value = _random.NextDouble() * _totalWeight;
         var cumulativeWeight = 0d;

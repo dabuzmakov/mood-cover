@@ -1,6 +1,6 @@
 ﻿namespace MoodCover.Core.Fractal_Flame;
 
-internal struct PixelAccumulator
+public struct PixelAccumulator
 {
     public long SumR { get; private set; }
     public long SumG { get; private set; }
@@ -13,5 +13,13 @@ internal struct PixelAccumulator
         SumG += g;
         SumB += b;
         Hits++;
+    }
+
+    public void MergeFrom(PixelAccumulator other)
+    {
+        Hits += other.Hits;
+        SumR += other.SumR;
+        SumG += other.SumG;
+        SumB += other.SumB;
     }
 }
