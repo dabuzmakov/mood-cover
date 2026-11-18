@@ -1,4 +1,4 @@
-﻿namespace MoodCover.Core;
+﻿namespace MoodCover.Core.Randomness;
 
 internal class WeightedRandom<T>
 {
