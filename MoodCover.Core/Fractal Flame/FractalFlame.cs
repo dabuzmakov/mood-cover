@@ -58,11 +58,11 @@ public class FractalFlame
             var variation = variationRandom.Next();
             (x, y) = variation.Apply(x, y);
 
-            var pixel = MapToPixel(x, y, width, height);
-            var color = options.Palette.Get(colorCoordinates[affineIndex]);
-
-            if (pixel is not null)
-                buffer[pixel.Value.Row, pixel.Value.Col].AddHit(color);
+            if (MapToPixel(x, y, width, height) is { } pixel)
+            {
+                var color = options.Palette.Get(colorCoordinates[affineIndex]);
+                buffer[pixel.Row, pixel.Col].AddHit(color);
+            }
         }
 
         return buffer;
