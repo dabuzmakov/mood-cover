@@ -2,6 +2,6 @@
 
 public interface IPalette
 {
-    (byte R, byte G, byte B) Get(double coordinate);
+    Color Get(double coordinate);
     string Name { get; }
 }

@@ -2,31 +2,20 @@
 using MoodCover.Core.Fractal_Flame.Variations;
 using MoodCover.Core.Options;
 using MoodCover.Core.Randomness;
-using System.Collections.Immutable;
 
 namespace MoodCover.Core.Fractal_Flame;
 
 public class FractalFlame
 {
-    private readonly IVariationFactory _variationFactory;
-
-    public FractalFlame(IVariationFactory variationFactory)
-    {
-        _variationFactory = variationFactory;
-    }
-
     public async Task<PixelAccumulator[,]> AccumulateHitsAsync(FractalFlameOptions options)
     {
         var random = new Random(options.Seed);
         var affineColorCoordinates = GetRandomColors(random, options.AffineParams.Count);
-        var variationWeightedRules = options.Variations
-            .Select(v => (_variationFactory.Get(v.Name), v.Weight))
-            .ToList();
 
         var chainCount = Math.Min(options.Threads, options.Iterations);
 
         if (chainCount == 1)
-            return AccumulateChainHits(options, affineColorCoordinates, variationWeightedRules);
+            return AccumulateChainHits(options, affineColorCoordinates);
 
         var iterationsPerChain = options.Iterations / chainCount;
         var remainder = options.Iterations % chainCount;
@@ -42,7 +31,7 @@ public class FractalFlame
             };
 
             tasks[i] = Task.Run(
-                () => AccumulateChainHits(chainOptions, affineColorCoordinates, variationWeightedRules));
+                () => AccumulateChainHits(chainOptions, affineColorCoordinates));
         }
 
         var buffers = await Task.WhenAll(tasks);
@@ -50,20 +39,19 @@ public class FractalFlame
     }
 
     private PixelAccumulator[,] AccumulateChainHits(
-        FractalFlameOptions options, 
-        IReadOnlyList<double> affineColorCoordinates,
-        IReadOnlyList<(IVariation Value, double Weight)> variationWeightedRules)
+        FractalFlameOptions options, IReadOnlyList<double> colorCoordinates)
     {
         var (width, height) = (options.Width, options.Height);
         var buffer = new PixelAccumulator[height, width];
 
         var random = new Random(options.Seed);
-        var variationRandom = new WeightedRandom<IVariation>(random, variationWeightedRules);
+        var variationRandom = new WeightedRandom<IVariation>(random, options.VariationSelectonRules);
         var (x, y) = GetRandomPoint(random, width, height);
 
         for (var iteration = 0; iteration < options.Iterations; iteration++)
         {
             var affineIndex = random.Next(options.AffineParams.Count);
+
             var affine = options.AffineParams[affineIndex];
             (x, y) = ApplyAffine(x, y, affine);
 
@@ -71,9 +59,10 @@ public class FractalFlame
             (x, y) = variation.Apply(x, y);
 
             var pixel = MapToPixel(x, y, width, height);
+            var color = options.Palette.Get(colorCoordinates[affineIndex]);
 
             if (pixel is not null)
-                buffer[pixel.Value.Row, pixel.Value.Col].AddHit();
+                buffer[pixel.Value.Row, pixel.Value.Col].AddHit(color);
         }
 
         return buffer;

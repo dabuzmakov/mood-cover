@@ -2,13 +2,13 @@
 
 public class WarmPalette : IPalette
 {
-    private static readonly (byte R, byte G, byte B) Red = (190, 35, 20);
-    private static readonly (byte R, byte G, byte B) Orange = (255, 120, 25);
-    private static readonly (byte R, byte G, byte B) Yellow = (255, 225, 130);
+    private static readonly Color Red = new Color(190, 35, 20);
+    private static readonly Color Orange = new Color(255, 120, 25);
+    private static readonly Color Yellow = new Color(255, 225, 130);
 
     public string Name => "warm";
 
-    public (byte R, byte G, byte B) Get(double coordinate)
+    public Color Get(double coordinate)
     {
         if (coordinate is not (>= 0.0 and <= 1.0))
             throw new ArgumentOutOfRangeException(nameof(coordinate));
@@ -19,12 +19,9 @@ public class WarmPalette : IPalette
         return Interpolate(Orange, Yellow, (coordinate - 0.5) * 2.0);
     }
 
-    private static (byte R, byte G, byte B) Interpolate(
-        (byte R, byte G, byte B) from,
-        (byte R, byte G, byte B) to,
-        double amount)
+    private static Color Interpolate(Color from, Color to, double amount)
     {
-        return (
+        return new Color(
             (byte)Math.Round(from.R + (to.R - from.R) * amount),
             (byte)Math.Round(from.G + (to.G - from.G) * amount),
             (byte)Math.Round(from.B + (to.B - from.B) * amount));

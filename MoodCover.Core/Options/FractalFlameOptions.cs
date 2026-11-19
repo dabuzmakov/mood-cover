@@ -1,9 +1,12 @@
-﻿namespace MoodCover.Core.Options;
+﻿using MoodCover.Core.Fractal_Flame.Palettes;
+using MoodCover.Core.Fractal_Flame.Variations;
+
+namespace MoodCover.Core.Options;
 
 public record FractalFlameOptions(
-    IReadOnlyList<VariationOptions> Variations,
+    IReadOnlyList<(IVariation Variation, double Weight)> VariationSelectonRules,
     IReadOnlyList<AffineParameters> AffineParams,
-    string Palette,
+    IPalette Palette,
     int Iterations,
     int Threads,
     int Height,

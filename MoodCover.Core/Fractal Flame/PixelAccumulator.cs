@@ -1,4 +1,6 @@
-﻿namespace MoodCover.Core.Fractal_Flame;
+﻿using MoodCover.Core.Fractal_Flame.Palettes;
+
+namespace MoodCover.Core.Fractal_Flame;
 
 public struct PixelAccumulator
 {
@@ -7,11 +9,11 @@ public struct PixelAccumulator
     public long SumB { get; private set; }
     public int Hits { get; private set; }
 
-    public void AddHit(byte r, byte g, byte b)
+    public void AddHit(Color color)
     {
-        SumR += r;
-        SumG += g;
-        SumB += b;
+        SumR += color.R;
+        SumG += color.G;
+        SumB += color.B;
         Hits++;
     }
 
