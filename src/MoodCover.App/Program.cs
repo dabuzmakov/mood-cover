@@ -8,7 +8,15 @@ public class Program
     public static void Main(string[] args)
     {
         var paletteRegistry = new NamedRegistry<IPalette>(
-            [new WarmPalette()],
+            [
+                new GradientPalette("warm",
+                    new Color(190, 35, 20),
+                    new Color(255, 120, 25),
+                    new Color(255, 225, 130)),
+                new GradientPalette("cold",
+                    new Color(20, 35, 110),
+                    new Color(100, 225, 255))
+            ],
             p => p.Name);
 
         var variationsRegistry = new NamedRegistry<IVariation>(
