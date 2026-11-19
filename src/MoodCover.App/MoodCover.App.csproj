@@ -8,10 +8,6 @@
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
   <ItemGroup>
-    <!-- Кроссплатформенная запись PNG (System.Drawing недоступен на Linux, где идёт CI). -->
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MoodCover.Benchmark\MoodCover.Benchmark.csproj" />
     <ProjectReference Include="..\MoodCover.Core\MoodCover.Core.csproj" />
   </ItemGroup>

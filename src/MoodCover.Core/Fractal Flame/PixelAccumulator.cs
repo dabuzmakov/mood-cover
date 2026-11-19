@@ -1,4 +1,5 @@
 ﻿using MoodCover.Core.Fractal_Flame.Palettes;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace MoodCover.Core.Fractal_Flame;
 
@@ -23,5 +24,17 @@ public struct PixelAccumulator
         SumR += other.SumR;
         SumG += other.SumG;
         SumB += other.SumB;
+    }
+
+    public Rgb24 ToRgb24(double maxLogDensity, double gamma)
+    {
+        var brightness = Math.Log(1.0 + Hits) / maxLogDensity;
+        var correctedBrightness = Math.Pow(brightness, 1 / gamma);
+        var colorScale = correctedBrightness / Hits;
+
+        return new Rgb24(
+            (byte)Math.Round(SumR * colorScale),
+            (byte)Math.Round(SumG * colorScale),
+            (byte)Math.Round(SumB * colorScale));
     }
 }
