@@ -12,7 +12,7 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MoodCover.Benchmark\MoodCover.Benchmark.csproj" />
-    <ProjectReference Include="..\..\MoodCover.Core\MoodCover.Core.csproj" />
+    <ProjectReference Include="..\MoodCover.Benchmark\MoodCover.Benchmark.csproj" />
+    <ProjectReference Include="..\MoodCover.Core\MoodCover.Core.csproj" />
   </ItemGroup>
 </Project>

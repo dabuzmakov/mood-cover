@@ -3,7 +3,7 @@
     <Project Path="src/MoodCover.App/MoodCover.App.csproj" />
     <Project Path="src/MoodCover.Tests/MoodCover.Tests.csproj" />
     <Project Path="src/MoodCover.IntegrationTests/MoodCover.IntegrationTests.csproj" />
+    <Project Path="src/MoodCover.Benchmark/MoodCover.Benchmark.csproj" Id="c70c32ae-53a5-4a29-8fbe-bc59f9593cea" />
+    <Project Path="src/MoodCover.Core/MoodCover.Core.csproj" Id="0a2ce383-21b4-42ed-aa85-8c2b2417bc3a" />
   </Folder>
-  <Project Path="MoodCover.Benchmark/MoodCover.Benchmark.csproj" Id="c70c32ae-53a5-4a29-8fbe-bc59f9593cea" />
-  <Project Path="MoodCover.Core/MoodCover.Core.csproj" Id="0a2ce383-21b4-42ed-aa85-8c2b2417bc3a" />
 </Solution>
