@@ -46,7 +46,9 @@ public class FractalFlame
 
         var random = new Random(options.Seed);
         var variationRandom = new WeightedRandom<IVariation>(random, options.VariationSelectonRules);
+
         var (x, y) = GetRandomPoint(random, width, height);
+        var colorCoordinate = random.NextDouble();
 
         for (var iteration = 0; iteration < options.Iterations; iteration++)
         {
@@ -57,10 +59,12 @@ public class FractalFlame
 
             var variation = variationRandom.Next();
             (x, y) = variation.Apply(x, y);
+            
+            colorCoordinate = (colorCoordinate + colorCoordinates[affineIndex]) / 2.0;
 
             if (MapToPixel(x, y, width, height) is { } pixel)
             {
-                var color = options.Palette.Get(colorCoordinates[affineIndex]);
+                var color = options.Palette.Get(colorCoordinate);
                 buffer[pixel.Row, pixel.Col].AddHit(color);
             }
         }
