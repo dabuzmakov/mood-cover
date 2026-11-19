@@ -1,10 +1,20 @@
 ﻿using MoodCover.Core.Extensions;
+using MoodCover.Core.Fractal_Flame.Variations;
 using MoodCover.Core.Options;
+using MoodCover.Core.Randomness;
+using System.Collections.Immutable;
 
 namespace MoodCover.Core.Fractal_Flame;
 
 public class FractalFlame
 {
+    private readonly IVariationFactory _variationFactory;
+
+    public FractalFlame(IVariationFactory variationFactory)
+    {
+        _variationFactory = variationFactory;
+    }
+
     public async Task<PixelAccumulator[,]> AccumulateHitsAsync(FractalFlameOptions options)
     {
         var random = new Random(options.Seed);
@@ -34,12 +44,16 @@ public class FractalFlame
         return buffers.Merge();
     }
 
-    private static PixelAccumulator[,] AccumulateChainHits(
+    private PixelAccumulator[,] AccumulateChainHits(
         FractalFlameOptions options, IReadOnlyList<double> affineColorCoordinates)
     {
         var buffer = new PixelAccumulator[options.Height, options.Width];
+        var variationWeightedRules = options.Variations
+            .Select(v => (_variationFactory.Get(v.Name), v.Weight))
+            .ToList();
 
         var random = new Random(options.Seed);
+        var variationRandom = new WeightedRandom<IVariation>(random, variationWeightedRules);
         var (x, y) = GetRandomPoint(random, options.Width, options.Height);
 
         for (var iteration = 0; iteration < options.Iterations; iteration++)
@@ -48,6 +62,9 @@ public class FractalFlame
             var affine = options.AffineParams[affineIndex];
 
             (x, y) = ApplyAffine(x, y, affine);
+
+            var variation = variationRandom.Next();
+            (x, y) = variation.Apply(x, y);
         }
 
         return buffer;
