@@ -61,19 +61,24 @@ public class Program
             v => v.Name);
 
         var options = new FractalFlameOptions(
-            VariationSelectonRules: [(variationsRegistry.Get("linear"), 1.0)],
+            VariationSelectonRules:
+            [
+                (variationsRegistry.Get("disk"), 4.0),
+                (variationsRegistry.Get("swirl"), 2.0),
+                (variationsRegistry.Get("linear"), 1.0)
+            ],
             AffineParams:
-           [
-               new AffineParameters(0.5, 0, -0.5, 0, 0.5, -0.4),
-               new AffineParameters(0.5, 0,  0.5, 0, 0.5, -0.4),
-               new AffineParameters(0.5, 0,  0.0, 0, 0.5,  0.45)
-           ],
-           Palette: paletteRegistry.Get("cold"),
-           Iterations: 1_000_000_000,
-           Threads: 8,
-           Height: 1080,
-           Width: 1920,
-           Seed: Random.Shared.Next());
+            [
+                new(0.60, -0.25, -1.00,  0.25, 0.60, -0.33),
+                new(0.60,  0.25,  1.00, -0.25, 0.60,  0.33),
+                new(0.56,  0.00,  0.00,  0.00, 0.56,  0.58)
+            ],
+            Palette: paletteRegistry.Get("rainbow"),
+            Iterations: 100_000_000,
+            Threads: 8,
+            Height: 1080,
+            Width: 1920,
+            Seed: 1);
 
         var renderer = new FractalFlameRenderer();
         var saver = new PngImageSaver();

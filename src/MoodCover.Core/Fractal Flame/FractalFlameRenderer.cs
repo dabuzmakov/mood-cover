@@ -59,8 +59,8 @@ public class FractalFlameRenderer
 
             var variation = variationRandom.Next();
             (x, y) = variation.Apply(x, y);
-            
-            colorCoordinate = (colorCoordinate + colorCoordinates[affineIndex]) / 2.0;
+
+            colorCoordinate = 0.4 * colorCoordinate + 0.6 * colorCoordinates[affineIndex];
 
             if (MapToPixel(x, y, width, height) is { } pixel)
             {

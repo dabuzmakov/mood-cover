@@ -9,8 +9,7 @@ namespace MoodCover.Tests.Mandatory.Mr1;
 /// </summary>
 public class RendererTest
 {
-    [Fact(DisplayName = "Аффинное преобразование считается по формуле на известных числах",
-          Skip = "MR1: реализуй тест и удали эту строку")]
+    [Fact(DisplayName = "Аффинное преобразование считается по формуле на известных числах")]
     public void AffineTransformFollowsFormula()
     {
         // xNew = a * x + b * y + c
