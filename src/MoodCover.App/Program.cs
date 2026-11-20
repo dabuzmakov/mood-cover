@@ -4,6 +4,7 @@ using MoodCover.Core.Fractal_Flame.Variations;
 using MoodCover.Core.Options;
 using MoodCover.Core.Registry;
 using MoodCover.Core.Render;
+using MoodCover.Core.Variations;
 
 public class Program
 {
@@ -47,8 +48,18 @@ public class Program
             p => p.Name);
 
         var variationsRegistry = new NamedRegistry<IVariation>(
-            [new LinearVariation()],
+            [
+                new LinearVariation(),
+                new SinusoidalVariation(),
+                new SphericalVariation(),
+                new SwirlVariation(),
+                new HorseshoeVariation(),
+                new PolarVariation(),
+                new HeartVariation(),
+                new DiskVariation()
+            ],
             v => v.Name);
+
         var options = new FractalFlameOptions(
             VariationSelectonRules: [(variationsRegistry.Get("linear"), 1.0)],
             AffineParams:
@@ -57,14 +68,14 @@ public class Program
                new AffineParameters(0.5, 0,  0.5, 0, 0.5, -0.4),
                new AffineParameters(0.5, 0,  0.0, 0, 0.5,  0.45)
            ],
-           Palette: paletteRegistry.Get("neon"),
-           Iterations: 200000,
-           Threads: 1,
+           Palette: paletteRegistry.Get("cold"),
+           Iterations: 1_000_000_000,
+           Threads: 8,
            Height: 1080,
            Width: 1920,
            Seed: Random.Shared.Next());
 
-        var renderer = new FractalFlame();
+        var renderer = new FractalFlameRenderer();
         var saver = new PngImageSaver();
 
         var buffer = await renderer.AccumulateHitsAsync(options);

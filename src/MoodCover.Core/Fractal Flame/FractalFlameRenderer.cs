@@ -5,7 +5,7 @@ using MoodCover.Core.Randomness;
 
 namespace MoodCover.Core.Fractal_Flame;
 
-public class FractalFlame
+public class FractalFlameRenderer
 {
     public async Task<PixelAccumulator[,]> AccumulateHitsAsync(FractalFlameOptions options)
     {
