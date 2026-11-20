@@ -38,7 +38,9 @@ public static class PixelAccumulatorExtensions
                 var pixel = buffer[row, col];
 
                 if (pixel.Hits > 0)
+                {
                     image[col, row] = pixel.ToRgb24(maxLogDensity, gamma);
+                }
             }
         }
 
@@ -50,7 +52,9 @@ public static class PixelAccumulatorExtensions
         var maxHits = 0;
 
         foreach (var pixel in buffer)
+        {
             maxHits = Math.Max(maxHits, pixel.Hits);
+        }
 
         return maxHits;
     }

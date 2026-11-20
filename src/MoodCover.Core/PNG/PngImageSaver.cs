@@ -19,7 +19,9 @@ public class PngImageSaver
         }
 
         if (!double.IsFinite(gamma) || gamma <= 0)
+        {
             throw new ArgumentOutOfRangeException(nameof(gamma));
+        }
 
         using var image = buffer.ToImage(gamma);
 

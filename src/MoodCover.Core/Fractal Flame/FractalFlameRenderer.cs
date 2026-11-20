@@ -15,7 +15,9 @@ public class FractalFlameRenderer
         var chainCount = Math.Min(options.Threads, options.Iterations);
 
         if (chainCount == 1)
+        {
             return AccumulateChainHits(options, affineColorCoordinates);
+        }
 
         var iterationsPerChain = options.Iterations / chainCount;
         var remainder = options.Iterations % chainCount;

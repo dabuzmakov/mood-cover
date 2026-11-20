@@ -12,7 +12,9 @@ public class NamedRegistry<T>
     public T Get(string name)
     {
         if (_items.TryGetValue(name, out var item))
+        {
             return item;
+        }
 
         throw new ArgumentException($"Неизвестное имя: {name} для {typeof(T).Name}", nameof(name));
     }

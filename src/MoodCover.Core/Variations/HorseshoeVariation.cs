@@ -11,7 +11,9 @@ public class HorseshoeVariation : IVariation
         var radius = Math.Sqrt(x * x + y * y);
 
         if (radius == 0.0)
+        {
             return (0.0, 0.0);
+        }
 
         return ((x - y) * (x + y) / radius, 2.0 * x * y / radius);
     }

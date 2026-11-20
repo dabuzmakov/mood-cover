@@ -9,7 +9,9 @@ public class GradientPalette : IPalette
     public GradientPalette(string name, params Color[] colors)
     {
         if (colors.Length == 0)
+        {
             throw new ArgumentException("Палитра должна содержать хотя бы один цвет.", nameof(colors));
+        }
 
         Name = name;
         _colors = colors.ToArray();
@@ -18,7 +20,9 @@ public class GradientPalette : IPalette
     public Color Get(double coordinate)
     {
         if (coordinate is not (>= 0.0 and <= 1.0))
+        {
             throw new ArgumentOutOfRangeException(nameof(coordinate));
+        }
 
         var position = coordinate * (_colors.Length - 1);
         var leftIndex = (int)position;

@@ -9,7 +9,9 @@ public class WeightedRandom<T>
     public WeightedRandom(Random random, IReadOnlyList<(T Value, double Weight)> weightedList)
     {
         if (weightedList.Count == 0 || weightedList.Any(pair => pair.Weight <= 0))
+        {
             throw new ArgumentException();
+        }
 
         _random = random;
         _weightedList = weightedList;
@@ -26,7 +28,9 @@ public class WeightedRandom<T>
             cumulativeWeight += rule.Weight;
 
             if (value < cumulativeWeight)
+            {
                 return rule.Value;
+            }
         }
 
         return _weightedList[^1].Value;

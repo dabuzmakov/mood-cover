@@ -17,7 +17,7 @@ public class AppComposer
     public AppComposer(
         FractalFlameRenderer? renderer = null,
         PngImageSaver? saver = null,
-        NamedRegistry<IVariation>? variations  = null,
+        NamedRegistry<IVariation>? variations = null,
         NamedRegistry<IPalette>? palettes = null)
     {
         Renderer = renderer ?? new FractalFlameRenderer();

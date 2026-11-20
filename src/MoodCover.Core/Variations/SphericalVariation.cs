@@ -11,7 +11,9 @@ public class SphericalVariation : IVariation
         var radiusSquared = x * x + y * y;
 
         if (radiusSquared == 0.0)
+        {
             return (0.0, 0.0);
+        }
 
         return (x / radiusSquared, y / radiusSquared);
     }
