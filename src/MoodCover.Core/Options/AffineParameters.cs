@@ -6,4 +6,13 @@ public readonly record struct AffineParameters(
     double C,
     double D,
     double E,
-    double F);
+    double F)
+{
+    public (double X, double Y) Apply(double x, double y)
+    {
+        var newX = A * x + B * y + C;
+        var newY = D * x + E * y + F;
+
+        return (newX, newY);
+    }
+}

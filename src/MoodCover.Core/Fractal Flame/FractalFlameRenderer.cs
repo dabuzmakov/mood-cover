@@ -55,7 +55,7 @@ public class FractalFlameRenderer
             var affineIndex = random.Next(options.AffineParams.Count);
 
             var affine = options.AffineParams[affineIndex];
-            (x, y) = ApplyAffine(x, y, affine);
+            (x, y) = affine.Apply(x, y);
 
             var variation = variationRandom.Next();
             (x, y) = variation.Apply(x, y);
@@ -70,15 +70,6 @@ public class FractalFlameRenderer
         }
 
         return buffer;
-    }
-
-    private static (double X, double Y) ApplyAffine(
-        double x, double y, AffineParameters affine)
-    {
-        var newX = affine.A * x + affine.B * y + affine.C;
-        var newY = affine.D * x + affine.E * y + affine.F;
-
-        return (newX, newY);
     }
 
     private static (double X, double Y) GetRandomPoint(
